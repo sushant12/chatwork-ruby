@@ -18,10 +18,11 @@ module ChatWork
   @api_base = 'https://api.chatwork.com/'
   @api_version = '/v2'
   @api_key = nil
+  @oauth_token = nil
 
   class << self
     def client
-      @client ||= Client.new(api_key, api_base, api_version)
+      @client ||= Client.new(api_key, api_base, api_version, oauth_token)
     end
 
     def api_base=(new_value)
@@ -31,6 +32,11 @@ module ChatWork
 
     def api_key=(new_value)
       @api_key = new_value
+      @client = nil
+    end
+
+    def oauth_token=(new_value)
+      @oauth_token = new_value
       @client = nil
     end
 
@@ -44,6 +50,10 @@ module ChatWork
 
     def api_version
       @api_version
+    end
+
+    def oauth_token
+      @oauth_token
     end
   end
 end
